@@ -76,6 +76,13 @@ logging:
     org.springframework.ai: INFO
 
 # ============================================================================
+# Configuration JWT
+# ============================================================================
+jwt:
+  secret: ${JWT_SECRET:mySecretKeyForJWTTokenGenerationThatIsAtLeast256BitsLong12345}
+  expiration: 86400000  # 24 hours in milliseconds
+
+# ============================================================================
 # Configuration pour les tests
 # ============================================================================
 ---
