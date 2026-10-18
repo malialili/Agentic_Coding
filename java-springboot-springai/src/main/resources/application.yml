@@ -1,0 +1,99 @@
+# Configuration de l'application Spring Boot + Spring AI pour l'agent IA
+# Fichier: src/main/resources/application.yml
+
+server:
+  port: 8081  # Port différent pour éviter les conflits avec l'autre exemple
+  servlet:
+    context-path: /api
+
+# Configuration des profils (dev, prod, test)
+spring:
+  profiles:
+    active: dev
+
+  # Configuration du client HTTP (pour les appels aux APIs externes comme Tavily)
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            connect-timeout: 5000
+            read-timeout: 10000
+            logger-level: basic
+
+# ============================================================================
+# Configuration Spring AI
+# ============================================================================
+# Configuration pour Mistral AI via Spring AI
+spring:
+  ai:
+    mistral:
+      api-key: ${MISTRAL_API_KEY:default_mistral_key}  # Clé API Mistral
+      base-url: https://api.mistral.ai/v1
+      chat:
+        model: mistral-tiny  # Modèle à utiliser (mistral-tiny, mistral-small, mistral-medium)
+        temperature: 0.7
+        max-tokens: 2000
+
+# ============================================================================
+# Configuration des clés API (pour Tavily et autres services)
+# ============================================================================
+app:
+  tavily:
+    api-key: ${TAVILY_API_KEY:default_tavily_key}  # Clé API Tavily pour la recherche web
+    base-url: https://api.tavily.com
+    max-results: 3
+    search-depth: basic
+
+# ============================================================================
+# Configuration du logging
+# ============================================================================
+logging:
+  level:
+    com.example.agent: DEBUG
+    org.springframework.web: INFO
+    org.springframework.ai: DEBUG  # Logs détaillés pour Spring AI
+    org.springframework.http: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+# ============================================================================
+# Configuration pour la production
+# ============================================================================
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+server:
+  port: 8080
+
+logging:
+  level:
+    com.example.agent: INFO
+    org.springframework.web: WARN
+    org.springframework.ai: INFO
+
+# ============================================================================
+# Configuration pour les tests
+# ============================================================================
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+
+app:
+  mistral:
+    api-key: test_mistral_key
+    base-url: http://localhost:8080/mock-mistral
+  tavily:
+    api-key: test_tavily_key
+    base-url: http://localhost:8080/mock-tavily
+
+spring:
+  ai:
+    mistral:
+      api-key: test_mistral_key
+      base-url: http://localhost:8080/mock-mistral
