@@ -1,0 +1,20 @@
+# Dépendances pour l'agent IA en Python
+# Installation: pip install -r requirements.txt
+
+# LangChain et intégrations
+langchain>=0.1.0
+langchain-community>=0.0.20
+langchain-core>=0.1.0
+
+# Modèles de langage (Mistral AI)
+# Note: Pour utiliser Mistral, vous devez avoir une clé API valide.
+# Alternative: Utilisez un autre fournisseur comme OpenAI (pip install langchain-openai)
+
+# Recherche web (Tavily)
+tavily-python>=0.1.0
+
+# Variables d'environnement
+python-dotenv>=1.0.0
+
+# Pour les tests (optionnel)
+pytest>=7.0.0
