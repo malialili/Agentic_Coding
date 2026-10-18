@@ -108,6 +108,13 @@
             <scope>test</scope>
         </dependency>
         
+        <!-- PostgreSQL Driver -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        
         <!-- MapStruct (optionnel, pour le mapping DTO) -->
         <dependency>
             <groupId>org.mapstruct</groupId>

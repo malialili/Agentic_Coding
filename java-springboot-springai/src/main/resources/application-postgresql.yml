@@ -1,0 +1,30 @@
+# Configuration pour PostgreSQL (à utiliser avec le profil 'prod')
+# Activez ce profil avec: --spring.profiles.active=prod
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/agentdb
+    driver-class-name: org.postgresql.Driver
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+# Configuration Spring AI pour PostgreSQL
+spring:
+  ai:
+    mistral:
+      api-key: ${MISTRAL_API_KEY}
+      base-url: https://api.mistral.ai/v1
+
+# Configuration des services externes
+app:
+  tavily:
+    api-key: ${TAVILY_API_KEY}
